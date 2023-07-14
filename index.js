@@ -11,10 +11,13 @@ function multiply(num1, num2){
 }
 
 function divide(num1, num2){
-    return num1/num2;
+    if (num2 == 0)
+        return "NOPE";
+    else
+        return num1/num2;
 }
 
-let operator = "";
+let operator = "+";
 let firstNum = 0;
 let secondNum = 0;
 
@@ -41,7 +44,6 @@ let rowFour = [1, 2, 3, "+"];
 let rowFive = [0, ".", "="];
 let number  = 0;
 let result = 0;
-let string = "";
 
 for (let i = 0; i < 5; i++){
     const smallContainer = document.createElement('div');
@@ -53,23 +55,27 @@ for (let i = 0; i < 5; i++){
             contentTwo.textContent = rowOne[j];
             if (typeof(rowOne[j]) == "number"){
                 contentTwo.addEventListener("click", myFunction => {
+                    inputContainer.value = operate(operator, number, parseInt(inputContainer.value)).toString();
                     if (parseInt(inputContainer.value.charAt(0)) == 0)
                         inputContainer.value = inputContainer.value.slice(1);
+                    if (parseInt(inputContainer.value) == number)
+                        inputContainer.value = "";
                     inputContainer.value += contentTwo.textContent;
                 });
             }
             else if (rowOne[j] == "AC"){
                 contentTwo.addEventListener("click", myFunction => {
                     inputContainer.value = "0";
+                    operator = "+";
                     number = 0;
                     result = 0;
                 })
             }
             if (rowOne[j] == "/"){
                 contentTwo.addEventListener("click", myFunction => {
-                    number = parseInt(inputContainer.value);
+                    number = (operate(operator, number, parseInt(inputContainer.value)));
                     operator = "/";                    
-                    inputContainer.value = "0";
+                    inputContainer.value = number.toString();
                 });
             }
             smallContainer.appendChild(contentTwo);                 
@@ -84,14 +90,16 @@ for (let i = 0; i < 5; i++){
                 contentTwo.addEventListener("click", myFunction => {
                     if (parseInt(inputContainer.value.charAt(0)) == 0)
                         inputContainer.value = inputContainer.value.slice(1);
+                    if (parseInt(inputContainer.value) == number)
+                        inputContainer.value = "";
                     inputContainer.value += contentTwo.textContent;
                 });
             }
             if (rowTwo[j] == "*"){
                 contentTwo.addEventListener("click", myFunction => {
-                    number = parseInt(inputContainer.value);
+                    number = (operate(operator, number, parseInt(inputContainer.value)));
                     operator = "*";
-                    inputContainer.value = "0";
+                    inputContainer.value = number.toString();
                 });
             }
             smallContainer.appendChild(contentTwo);                 
@@ -106,14 +114,16 @@ for (let i = 0; i < 5; i++){
                 contentTwo.addEventListener("click", myFunction => {
                     if (parseInt(inputContainer.value.charAt(0)) == 0)
                         inputContainer.value = inputContainer.value.slice(1);
+                    if (parseInt(inputContainer.value) == number)
+                        inputContainer.value = "";
                     inputContainer.value += contentTwo.textContent;
                 });
             }
             if (rowThree[j] == "-"){
                 contentTwo.addEventListener("click", myFunction => {
-                    number = parseInt(inputContainer.value);
+                    number = (operate(operator, number, parseInt(inputContainer.value)));
                     operator = "-";
-                    inputContainer.value = "0";
+                    inputContainer.value = number.toString();
                 });
             }
             smallContainer.appendChild(contentTwo);                
@@ -128,14 +138,16 @@ for (let i = 0; i < 5; i++){
                 contentTwo.addEventListener("click", myFunction => {
                     if (parseInt(inputContainer.value.charAt(0)) == 0)
                         inputContainer.value = inputContainer.value.slice(1);
+                    if (parseInt(inputContainer.value) == number)
+                        inputContainer.value = "";
                     inputContainer.value += contentTwo.textContent;
                 })
             }
             if (rowFour[j] == "+"){
                 contentTwo.addEventListener("click", myFunction => {
+                    number = (operate(operator, number, parseInt(inputContainer.value)));
                     operator = "+";
-                    number = parseInt(inputContainer.value);
-                    inputContainer.value = "0";
+                    inputContainer.value = number.toString();
                 });
             }
             smallContainer.appendChild(contentTwo); 
@@ -150,6 +162,8 @@ for (let i = 0; i < 5; i++){
                 contentTwo.addEventListener("click", myFunction  => {
                     if (parseInt(inputContainer.value.charAt(0)) == 0)
                         inputContainer.value = inputContainer.value.slice(1);
+                    if (parseInt(inputContainer.value) == number)
+                        inputContainer.value = "";
                     inputContainer.value += contentTwo.textContent;
                 });
             }
